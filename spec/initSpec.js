@@ -1,8 +1,10 @@
+var welcomeMessage = require('/src/static/scripts/init.js');
+
 describe("vulcan init", function() {
   describe("welcomeMessage", function() {
-    spyOn(welcomeMessage);
+    spyOn(welcomeMessage());
     it("Displays a message to the user", function() {
-      expect(welcomeMessage).toHaveBeenCalled();
+      expect(welcomeMessage()).toHaveBeenCalled();
     });
   });
 });
