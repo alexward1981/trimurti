@@ -6,6 +6,7 @@ Any development tasks or optimisations which need to be made should be listed he
 **Note:** If there is a task/bug manager in place to cover this then this file will not be updated.
 
 ## Tasks:
-1. Set up tests (jasmine and casperjs/spooky)
+1. Work out how to structure the vulcan folders
+2. Work out how the schema will be mapped out
 
 ## Issues

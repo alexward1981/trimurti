@@ -16,7 +16,7 @@ This version will include the Editor environment and also hopes to include a jav
 
 The user already has node installed and has already installed vulcan as a global node package.
 
-### Script for entry point 1
+### Script for entry point 1 (No vulcanrc.js file)
 
 Action: user types `vulcan`;
 Expected outcome: A message is displayed saying `no vulcanrc.js file found, please run '$ vulcan init first'`;
@@ -45,6 +45,8 @@ Next: End;
 Action: User edits vulcanrc.js
 Expected outcome: The user will be able to edit the schema of their API, adding GET and POST requests, providing friendly names and adding validation to their API schema.
 Next: End;
+
+### Script for entry point 2 (vulcanrc.js file exists and has a valid schema)
 
 Action: User types `vulcan`:
 Expected Outcome: Now a vulcanrc.js file exists the file will be parsed and a set of files will be generated under ./vulcan
