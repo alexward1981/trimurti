@@ -19,7 +19,7 @@ The user already has node installed and has already installed vulcan as a global
 ### Script for entry point 1
 
 Action: user types `vulcan`;
-Expected outcome: A message is displayed saying `no vulcan.rc file found, please run '$ vulcan init first'`;
+Expected outcome: A message is displayed saying `no vulcanrc.js file found, please run '$ vulcan init first'`;
 Next: End;
 
 Action: user types `vulcan init`;
@@ -35,5 +35,21 @@ Expected outcome: A message is displayed saying `Please provide a description fo
 Next: Decision tree step 3.
 
 Action: Decision tree step 3;
-Expected outcome: A message is displayed saying `Please provide a name for your app`. The user types a name and moves on to the next question.
-Next: Decision tree step 3.
+Expected outcome: A message is displayed saying `Please provide the main entry point for your API (including any API keys that are required)`. The user types a url and moves on to the next question.
+Next: Decision tree step 4.
+
+Action Decision tree step 4;
+Expected outcome: A file structure is generated in ./vulcan/ this will currently just be a file called vulcanrc.js
+Next: End;
+
+Action: User edits vulcanrc.js
+Expected outcome: The user will be able to edit the schema of their API, adding GET and POST requests, providing friendly names and adding validation to their API schema.
+Next: End;
+
+Action: User types `vulcan`:
+Expected Outcome: Now a vulcanrc.js file exists the file will be parsed and a set of files will be generated under ./vulcan
+Next: End.
+
+Action: User visits '/vulcan' in their browser
+Expected outcome: The user will be presented with the vulcan editor.
+Next: End.
