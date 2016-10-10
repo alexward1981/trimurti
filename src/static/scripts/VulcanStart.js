@@ -21,19 +21,21 @@ export default class VulcanStart {
         message: 'What do you want to name your new Vulcan app?',
         default: 'MYAPP',
         validate: function (value) {
-          var pass = value.match(/^[a-zA-Z0-9_]+$/);
-          if (pass) {
-            return true;
-          }
-
+          let pass = value.match(/^[a-zA-Z0-9_]+$/);
+          if (pass) return true;
           return 'Please do not use spaces or special characters (only A-Z a-z 0-9 and \'_\')';
         }
       },
       {
         type: 'input',
         name: 'API',
-        message: 'What is the URL of your API entrypoint (without a trailing /)?:',
-        default: 'http://localhost:8080/api'
+        message: 'What is the full URL of your API entrypoint (without a trailing /)?:',
+        default: 'http://localhost:8080/api',
+        validate: function (value) {
+          let pass = value.match(/^(https?):\/\/([A-Z\d\.-]{2,})\.?([A-Z]{2,})?(:\d{2,5})?(\/)?([A-Z\d\.\-_?#&%=]{1,})?$/i);
+          if (pass) return true;
+          return 'That doesn\'t look like a valid url. Don\'t forget the \'http(s)!\'';
+        }
       },
       {
         type: 'input',
@@ -57,11 +59,39 @@ export default class VulcanStart {
       let styles_response = (answers.Styles) ? 'do' : 'don\'t';
       console.log('You have said that you', chalk.cyan(styles_response), 'want to use the default editor theme');
       console.log('Vulcan will now build your editor from', chalk.cyan(answers.API), 'using the following routes:');
-      let routes = answers.Routes.split(',');
-      for (var i = 0; i < routes.length; i++) {
-        console.log(chalk.cyan(answers.API +'/'+routes[i]+'/'));
+      if (answers.Routes) {
+        let routes = answers.Routes.split(',');
+        for (var i = 0; i < routes.length; i++) {
+          console.log(chalk.cyan(answers.API +'/'+routes[i]+'/'));
+        }
+      } else {
+        console.log(chalk.cyan(answers.API +'/'));
       }
+
+      confirmer();
     });
+
+    let confirm = [
+      {
+        type: 'confirm',
+        name: 'Happy',
+        message: 'Are you happy with your answers?:',
+        default: true
+      }
+    ]
+
+    let confirmer = function() {
+      inquirer.prompt(confirm)
+      .then(function (confirmations) {
+        if(confirmations.Happy) {
+          console.log(chalk.green('✔ Glad to hear it! Vulcan is now generating your editor'));
+        } else {
+          console.log(chalk.red('✘ Bummer! I guess you need to start again, I\'m afraid'));
+          exit();
+        }
+      });
+    }
+
   }
 
   // Execute all methods
