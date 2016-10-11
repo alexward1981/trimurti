@@ -1,5 +1,6 @@
 import chalk from 'chalk';
 import inquirer from 'inquirer';
+import StructuralGenerator from './structuralGenerator';
 
 export default class VulcanStart {
   welcomeMessage(version) {
@@ -68,7 +69,7 @@ export default class VulcanStart {
         console.log(chalk.cyan(answers.API +'/'));
       }
 
-      confirmer();
+      confirmer(answers);
     });
 
     let confirm = [
@@ -80,11 +81,13 @@ export default class VulcanStart {
       }
     ]
 
-    let confirmer = function() {
+    let confirmer = function(answers) {
       inquirer.prompt(confirm)
       .then(function (confirmations) {
         if(confirmations.Happy) {
           console.log(chalk.green('✔ Glad to hear it! Vulcan is now generating your editor'));
+          let sg = new StructuralGenerator;
+          sg.init(answers);
         } else {
           console.log(chalk.red('✘ Bummer! I guess you need to start again, I\'m afraid'));
           exit();

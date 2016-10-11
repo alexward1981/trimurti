@@ -5,6 +5,8 @@ describe("Initialise Vulcan", () => {
 
   beforeEach(() => {
     spyOn(vs, 'welcomeMessage').and.callThrough();
+    spyOn(vs, 'displayIntro').and.callThrough();
+    spyOn(vs, 'askQuestions').and.callThrough();
     message = vs.welcomeMessage();
   });
 
@@ -15,5 +17,13 @@ describe("Initialise Vulcan", () => {
   it("Displays a message string to the user", () => {
     expect(message).toEqual(jasmine.any(String))
   });
+
+  // it("Displays an introduction to the user", () => {
+  //   expect(vs.displayIntro).toHaveBeenCalled();
+  // });
+  //
+  // it("Asks a series of questions to the user", () => {
+  //   expect(vs.askQuestions).toHaveBeenCalled();
+  // });
 
 });

@@ -10,3 +10,4 @@ Any development tasks or optimisations which need to be made should be listed he
 2. Work out how the schema will be mapped out
 
 ## Issues
+1. There is a potential issue with path resolution. I need to make sure that the 'vulcan' folder is placed in the correct place for any project it's in. This will probably require config.
