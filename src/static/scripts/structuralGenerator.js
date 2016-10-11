@@ -3,24 +3,51 @@ import chalk from 'chalk';
 import inquirer from 'inquirer';
 import del from 'del';
 
+/* Creates the following folder tree
+   /vulcan
+    -/core
+    --/scripts
+    --/layouts
+    -/themes*
+    --/styles
+    --/images
+    --/scripts
+
+    * This will only be generated if the user
+      has chosen to use the default theme
+*/
+
 export default class StructuralGenerator {
-  generateTree(answers) {
-    /* Creates the following folder tree
-       /vulcan
-        -/core
-        --/scripts
-        --/layouts
-        -/themes*
-        --/styles
-        --/images
-        --/scripts
+  // The actual folder structure generator
+  genF() {
+    fs.existsSync("./vulcan") || fs.mkdirSync("./vulcan");
+    fs.existsSync("./vulcan/core") || fs.mkdirSync("./vulcan/core");
+    fs.existsSync("./vulcan/core/scripts") || fs.mkdirSync("./vulcan/core/scripts");
+    fs.existsSync("./vulcan/core/layouts") || fs.mkdirSync("./vulcan/core/layouts");
 
-        * This will only be generated if the user
-          has chosen to use the default theme
-    */
+    if(this.answers.Styles) {
+      fs.existsSync("./vulcan/themes") || fs.mkdirSync("./vulcan/themes");
+      fs.existsSync("./vulcan/themes/styles") || fs.mkdirSync("./vulcan/themes/styles");
+      fs.existsSync("./vulcan/themes/images") || fs.mkdirSync("./vulcan/themes/images");
+      fs.existsSync("./vulcan/themes/scripts") || fs.mkdirSync("./vulcan/themes/scripts");
+    } else {
+      console.log(chalk.red('Warning:'), chalk.yellow('As you have chosen not to use the default theme, you will be presented with a style-less plain HTML product. Expect it to look awful.'));
+    }
+  }
 
-    fs.Stats('./vulcan', () => {
-      if(Stats.isDirectory) {
+  // clean existing folder
+  cleantree() {
+    del('./vulcan/**').then(paths => {
+      // Folders found, user chose to delete everything and start again
+      console.log('Deleted files and folders:\n'+paths.join('\n'));
+      this.genF();
+    });
+  }
+
+  generateTree() {
+    let t = this;
+    fs.access('./vulcan', fs.F_OK, function(err) {
+      if(!err) {
         console.log(chalk.red('Warning:'), chalk.yellow('A Vulcan folder has been detected, if you continue, this will completely overwrite all your current Vulcan files.'));
         let confirm = [
           {
@@ -36,60 +63,17 @@ export default class StructuralGenerator {
             // User said no, don't proceed past this point
             return console.log(chalk.red('Operation aborted by user.'));
           } else {
-            genF(true);
+            t.cleantree()
           }
         });
       } else {
-        genF(false);
+        t.genF();
       }
-
     });
-
-    // The actual folder structure generator
-    let genF = (deltree) => {
-      if(deltree) {
-        del(['./vulcan/**/*']).then(paths => {
-          console.log('Deleted files and folders:\n', paths.join('\n'));
-        });
-      }
-
-      fs.mkdir('./vulcan', (err) => {
-        if (err) throw err;
-      });
-
-      fs.mkdir('./vulcan/core', (err) => {
-        if (err) throw err;
-      });
-
-      fs.mkdir('./vulcan/core/scripts', (err) => {
-        if (err) throw err;
-      });
-
-      fs.mkdir('./vulcan/core/layouts', (err) => {
-        if (err) throw err;
-      });
-      if(answers.Styles) {
-        fs.mkdir('./vulcan/themes', (err) => {
-          if (err) throw err;
-        });
-
-        fs.mkdir('./vulcan/themes/styles', (err) => {
-          if (err) throw err;
-        });
-        fs.mkdir('./vulcan/themes/images', (err) => {
-          if (err) throw err;
-        });
-        fs.mkdir('./vulcan/themes/scripts', (err) => {
-          if (err) throw err;
-        });
-      } else {
-        console.log(chalk.red('Warning:'), chalk.yellow('As you have chosen not to use the default theme, you will be presented with a style-less plain HTML product. Expect it to look awful.'));
-      }
-    }
-
   }
 
   init(answers) {
-    this.generateTree(answers);
+    this.answers = answers;
+    this.generateTree();
   }
 }
