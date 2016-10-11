@@ -6,8 +6,8 @@ Any development tasks or optimisations which need to be made should be listed he
 **Note:** If there is a task/bug manager in place to cover this then this file will not be updated.
 
 ## Tasks:
-1. Work out how to structure the vulcan folders
-2. Work out how the schema will be mapped out
+1. Work out how the schema will be mapped out
 
 ## Issues
 1. There is a potential issue with path resolution. I need to make sure that the 'vulcan' folder is placed in the correct place for any project it's in. This will probably require config.
+2. I've had to use 'let t = this' a few times where I've used promises. These need refactoring out.

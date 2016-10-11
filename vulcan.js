@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 'use strict';
 
-var _VulcanStart = require('./dist/static/scripts/VulcanStart');
+var _CreateSchemas = require('./dist/static/scripts/CreateSchemas');
 
-var _VulcanStart2 = _interopRequireDefault(_VulcanStart);
+var _CreateSchemas2 = _interopRequireDefault(_CreateSchemas);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var vs = new _VulcanStart2.default();
+var cs = new _CreateSchemas2.default();
 
-vs.init();
+// import VulcanStart from './dist/static/scripts/VulcanStart';
+// let vs = new VulcanStart;
+// vs.init();
+
+cs.init();
