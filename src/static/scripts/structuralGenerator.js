@@ -2,6 +2,7 @@ import fs from 'fs';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 import del from 'del';
+import CreateSchemas from './CreateSchemas';
 
 /* Creates the following folder tree
    /vulcan
@@ -23,6 +24,7 @@ export default class StructuralGenerator {
     fs.existsSync("./vulcan") || fs.mkdirSync("./vulcan");
     fs.existsSync("./vulcan/core") || fs.mkdirSync("./vulcan/core");
     fs.existsSync("./vulcan/core/scripts") || fs.mkdirSync("./vulcan/core/scripts");
+    fs.existsSync("./vulcan/core/routes") || fs.mkdirSync("./vulcan/core/routes");
     fs.existsSync("./vulcan/core/layouts") || fs.mkdirSync("./vulcan/core/layouts");
 
     if(this.answers.Styles) {
@@ -33,6 +35,9 @@ export default class StructuralGenerator {
     } else {
       console.log(chalk.red('Warning:'), chalk.yellow('As you have chosen not to use the default theme, you will be presented with a style-less plain HTML product. Expect it to look awful.'));
     }
+    // All folders created, proceed to next step
+    let cs = new CreateSchemas;
+    cs.init(this.answers);
   }
 
   // clean existing folder

@@ -10,7 +10,7 @@ export default class VulcanStart {
 
   displayIntro() {
     return (
-      'Vulcan is a data driven CMS which will allow content editors to easily add updates to your node API.'+"\n\n"+"To get started, follow the instructions below:\n\r"
+      'Vulcan is a data driven CMS which will allow content editors to easily add updates to your node API.'+"\n\n"+"Note: At the moment Vulcan is limited to feeds with simple routes and no parameters e.g. https://url.ext/api/routename \n\n"+"To get started, follow the instructions below:\n\r"
     )
   }
 
