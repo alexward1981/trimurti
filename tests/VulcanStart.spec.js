@@ -1,5 +1,5 @@
 import VulcanStart from '../src/static/scripts/VulcanStart';
-describe("Initialise Vulcan", () => {
+describe('Initialise Vulcan', () => {
   let message = null;
   let vs = new VulcanStart;
 
@@ -10,11 +10,11 @@ describe("Initialise Vulcan", () => {
     message = vs.welcomeMessage();
   });
 
-  it("Calls the 'welcomeMessage' method", () => {
+  it('Calls the "welcomeMessage" method', () => {
     expect(vs.welcomeMessage).toHaveBeenCalled();
   });
 
-  it("Displays a message string to the user", () => {
+  it('Displays a message string to the user', () => {
     expect(message).toEqual(jasmine.any(String))
   });
 

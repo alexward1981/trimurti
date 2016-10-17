@@ -21,17 +21,17 @@ import CreateSchemas from './CreateSchemas';
 export default class StructuralGenerator {
   // The actual folder structure generator
   genF() {
-    fs.existsSync("./vulcan") || fs.mkdirSync("./vulcan");
-    fs.existsSync("./vulcan/core") || fs.mkdirSync("./vulcan/core");
-    fs.existsSync("./vulcan/core/scripts") || fs.mkdirSync("./vulcan/core/scripts");
-    fs.existsSync("./vulcan/core/routes") || fs.mkdirSync("./vulcan/core/routes");
-    fs.existsSync("./vulcan/core/layouts") || fs.mkdirSync("./vulcan/core/layouts");
+    fs.existsSync('./vulcan') || fs.mkdirSync('./vulcan');
+    fs.existsSync('./vulcan/core') || fs.mkdirSync('./vulcan/core');
+    fs.existsSync('./vulcan/core/scripts') || fs.mkdirSync('./vulcan/core/scripts');
+    fs.existsSync('./vulcan/core/routes') || fs.mkdirSync('./vulcan/core/routes');
+    fs.existsSync('./vulcan/core/layouts') || fs.mkdirSync('./vulcan/core/layouts');
 
     if(this.answers.Styles) {
-      fs.existsSync("./vulcan/themes") || fs.mkdirSync("./vulcan/themes");
-      fs.existsSync("./vulcan/themes/styles") || fs.mkdirSync("./vulcan/themes/styles");
-      fs.existsSync("./vulcan/themes/images") || fs.mkdirSync("./vulcan/themes/images");
-      fs.existsSync("./vulcan/themes/scripts") || fs.mkdirSync("./vulcan/themes/scripts");
+      fs.existsSync('./vulcan/themes/default') || fs.mkdirSync('./vulcan/default/themes');
+      fs.existsSync('./vulcan/themes/default/styles') || fs.mkdirSync('./vulcan/themes/default/styles');
+      fs.existsSync('./vulcan/themes/default/images') || fs.mkdirSync('./vulcan/themes/default/images');
+      fs.existsSync('./vulcan/themes/default/scripts') || fs.mkdirSync('./vulcan/themes/default/scripts');
     } else {
       console.log(chalk.red('Warning:'), chalk.yellow('As you have chosen not to use the default theme, you will be presented with a style-less plain HTML product. Expect it to look awful.'));
     }

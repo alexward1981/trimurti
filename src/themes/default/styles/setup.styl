@@ -44,44 +44,50 @@ body {
   display: none;
 }
 
-.page-wrapper, .main {
+.wrapper {
   min-height:100vh;
 }
 
-footer {
+.tree_menu {
   position: relative;
-  overflow: hidden;
-  height: 10vh;
-  max-height: 10vh;
-  background-color: $dark;
-
-  h1 {
-    float:left;
-    padding: $spacing 0;
-    img {
-      width: auto;
-      height: 9rem;
-      margin-top: -($vspacing*4);
-      margin-right: $hspacing;
-      +above(l) {
-        margin-top: 0;
-        height: 6rem;
+  col(1/4);
+  min-height: 100vh;
+  background-color: #ccc;
+  > ul {
+    > li {
+      background-color: #555;
+      padding: $spacing;
+      color: $light;
+      border-bottom: 1px dotted $light;
+      &:hover {
+        background-color: darken(#555, 10%);
       }
-    }
-    span {
-      display: none;
+      ul {
+        padding: $spacing;
+        li {
+          background-color: #ccc;
+          padding: $spacing;
+          color: $dark;
+          margin-bottom: $vspacing;
+          &:hover {
+            background-color: darken(#ccc, 10%);
+          }
+        }
+      }
+      &.settings {
+        position: absolute;
+        bottom:0;
+        border-bottom: 0;
+        width: 100%;
+      }
     }
   }
 }
 
-.wrapper.grid {
-  height:90vh;
-  .top {
-    height: 40%;
-    min-height: 40%;
-  }
-  .bottom {
-    height: 60%;
-    min-height: 60%;
+.editor {
+  col(3/4);
+  h1 {
+    font-size: 4rem;
+    font-weight: bold;
   }
 }
