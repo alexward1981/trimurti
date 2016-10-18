@@ -1,4 +1,4 @@
-import VulcanStart from '../src/static/scripts/VulcanStart';
+import VulcanStart from '../src/core/scripts/VulcanStart';
 describe('Initialise Vulcan', () => {
   let message = null;
   let vs = new VulcanStart;

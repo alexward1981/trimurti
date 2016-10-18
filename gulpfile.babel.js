@@ -29,7 +29,7 @@ var reporter = new JasmineConsoleReporter({
 });
 
 // The source and destination directories
-// Note: If you are using your own theme, simply replace the 'default' directory with your own theme dir
+// Note: If you are using your own theme, simply replace the 'default' directory with your own theme dir (This will also need to be done in server.js)
 let io;
 if(argv.core) {
   io = {
@@ -100,6 +100,11 @@ gulp.task('scripts', ['test'], () => {
 gulp.task('updateApp', ['scripts'], () => {
   gulp.src(io.out+path.scripts+'/vulcan.js')
   .pipe(gulp.dest('./'))
+});
+
+// run all the required build tasks
+gulp.task('build', ['clean'], () => {
+  gulp.start('styles', 'scripts', 'updateApp');
 });
 
 // Delete the destination directory
