@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.set('view engine', 'ejs');
-app.set('views', __dirname + '/src/themes/'+theme+'/views');
+app.set('views', __dirname + '/vulcan/themes/'+theme+'/views');
 
 app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -23,9 +23,10 @@ app.use(function(req, res, next) {
 
 app.use(morgan('dev'));
 
-app.use('/', routes);
+// Set a static files folder (css, images etc...)
+app.use('/static', express.static('vulcan/themes/'+theme));
 
-app.use(express.static(__dirname + '/public'));
+app.use('/', routes);
 
 app.listen(port);
 

@@ -45,6 +45,7 @@ let themePaths = {
 
 // The paths
 const path = {
+  views: '/views',
   scripts: '/scripts',
   styles: '/styles'
 }
@@ -110,6 +111,11 @@ gulp.task('theme', () => {
   .pipe(concat('core.min.css'))
   .pipe(cmq())
   .pipe(gulp.dest(themePaths.out+path.styles))
+  gulp.src(themePaths.in+path.views+'/**/*.ejs')
+  .pipe(plumber(
+    { errorHandler: onError }
+  ))
+  .pipe(gulp.dest(themePaths.out+path.views))
 });
 
 // Update the main vulcan.js file
