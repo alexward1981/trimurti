@@ -1,0 +1,64 @@
+{
+  "appName" : "test",
+  "apiRoot" : "localhost/api",
+  "routes" : {
+    "posts" : {
+      "item" : [
+          {
+            "id" : "",
+            "userid" : "",
+            "title" : "",
+            "body" : ""
+          }
+      ]
+    },
+    "comments" : {
+      "item" : [
+        {
+          "id" : "",
+          "postid" : "",
+          "name" : "",
+          "email" : "",
+          "body" : ""
+        }
+      ]
+    },
+    "todos": {
+      "item" : [
+        {
+          "id" : "",
+          "userId" : "",
+          "title" : "",
+          "completed" : false
+        }
+      ]
+    },
+    "users" : {
+      "item" : [
+        {
+          "id" : "",
+          "name" : "",
+          "username" : "",
+          "email" : "",
+          "address" : {
+            "street" : "",
+            "suite" : "",
+            "city" : "",
+            "zipcode" : "",
+            "geo" : {
+              "lat" : "",
+              "lng" : ""
+            }
+          },
+          "phone" : "",
+          "website" : "",
+          "company" : {
+            "name" : "",
+            "catchPhrase" : "",
+            "bs" : ""
+          }
+        }
+      ]
+    }
+  }
+}

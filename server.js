@@ -1,11 +1,18 @@
-var express = require('express'),
-    app = express(),
-    bodyParser = require('body-parser'),
-    morgan = require('morgan'),
-    path = require('path');
+var express = require('express');
+var bodyParser = require('body-parser');
+var morgan = require('morgan');
+var routes = require('./src/core/routes/index');
+
+var app = express();
+
+var port = 3002; // Feel free to change this if you are already using 3002
+var theme = 'default' // change this to match your theme directory name
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/src/themes/'+theme+'/views');
 
 app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -16,11 +23,10 @@ app.use(function(req, res, next) {
 
 app.use(morgan('dev'));
 
-app.use(express.static(__dirname + '/dist'));
+app.use('/', routes);
 
-app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/index.html'));
-});
+app.use(express.static(__dirname + '/public'));
 
-app.listen(8080);
-console.log('Vulcan is running on 8080');
+app.listen(port);
+
+console.log('Vulcan is running on localhost:'+port);

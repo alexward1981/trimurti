@@ -7,9 +7,9 @@ Any development tasks or optimisations which need to be made should be listed he
 
 ## Tasks:
 1. Work out how the schema will be mapped out
-2. Make vulcanStart look for a .vulcanrc file before it asks questions and use that file to do the rest
+2. Make vulcanStart look for a vulcan.json file before it asks questions and use that file to do the rest
 3. Add the ability to edit the output of the CMS. So you can go through the schema and set certain items to 'editible', 'hidden' or 'visible but not editable' etc... and also to override the detected input types (useful for making textareas etc...)
-4. Work out how the vulcan editor will be constructed. I suspect nunjucks is the way at the moment.
+
 ## Issues
 1. There is a potential issue with path resolution. I need to make sure that the 'vulcan' folder is placed in the correct place for any project it's in. This will probably require config.
 2. I've had to use 'let t = this' a few times where I've used promises. These need refactoring out.

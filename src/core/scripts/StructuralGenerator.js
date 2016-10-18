@@ -8,11 +8,13 @@ import CreateSchemas from './CreateSchemas';
    /vulcan
     -/core
     --/scripts
-    --/layouts
+    --/routes
     -/themes*
-    --/styles
-    --/images
-    --/scripts
+    --/default
+    ----/styles
+    ----/images
+    ----/scripts
+    ----/views
 
     * This will only be generated if the user
       has chosen to use the default theme
@@ -25,13 +27,13 @@ export default class StructuralGenerator {
     fs.existsSync('./vulcan/core') || fs.mkdirSync('./vulcan/core');
     fs.existsSync('./vulcan/core/scripts') || fs.mkdirSync('./vulcan/core/scripts');
     fs.existsSync('./vulcan/core/routes') || fs.mkdirSync('./vulcan/core/routes');
-    fs.existsSync('./vulcan/core/layouts') || fs.mkdirSync('./vulcan/core/layouts');
 
     if(this.answers.Styles) {
       fs.existsSync('./vulcan/themes/default') || fs.mkdirSync('./vulcan/default/themes');
       fs.existsSync('./vulcan/themes/default/styles') || fs.mkdirSync('./vulcan/themes/default/styles');
       fs.existsSync('./vulcan/themes/default/images') || fs.mkdirSync('./vulcan/themes/default/images');
       fs.existsSync('./vulcan/themes/default/scripts') || fs.mkdirSync('./vulcan/themes/default/scripts');
+      fs.existsSync('./vulcan/themes/default/views') || fs.mkdirSync('./vulcan/themes/default/views');
     } else {
       console.log(chalk.red('Warning:'), chalk.yellow('As you have chosen not to use the default theme, you will be presented with a style-less plain HTML product. Expect it to look awful.'));
     }

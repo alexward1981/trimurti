@@ -1,16 +1,16 @@
 import chalk from 'chalk';
 import inquirer from 'inquirer';
-import StructuralGenerator from './structuralGenerator';
+import StructuralGenerator from './StructuralGenerator';
 
 export default class VulcanStart {
   welcomeMessage(version) {
-    let starString = "*************************************";
-    return "\n\n\n"+starString+"\n\n"+"  Welcome to Vulcan (Version "+version+")\n\n"+starString+"\n";
+    let starString = '*************************************';
+    return '\n\n\n'+starString+'\n\n'+'  Welcome to Vulcan (Version '+version+')\n\n'+starString+'\n';
   };
 
   displayIntro() {
     return (
-      'Vulcan is a data driven CMS which will allow content editors to easily add updates to your node API.'+"\n\n"+"Note: At the moment Vulcan is limited to feeds with simple routes and no parameters e.g. https://url.ext/api/routename \n\n"+"To get started, follow the instructions below:\n\r"
+      'Vulcan is a data driven CMS which will allow content editors to easily add updates to your node API.'+'\n\n'+'Note: At the moment Vulcan is limited to a single feed with simple routes and no parameters e.g. https://url.ext/api/routename \n\n'+'To get started, follow the instructions below:\n\r'
     )
   }
 
@@ -23,7 +23,7 @@ export default class VulcanStart {
         default: 'MYAPP',
         validate: function (value) {
           let pass = value.match(/^[a-zA-Z0-9_]+$/);
-          if (pass) return true;
+          if (pass) { return true; }
           return 'Please do not use spaces or special characters (only A-Z a-z 0-9 and \'_\')';
         }
       },
@@ -34,7 +34,7 @@ export default class VulcanStart {
         default: 'http://localhost:8080/api',
         validate: function (value) {
           let pass = value.match(/^(https?):\/\/([A-Z\d\.-]{2,})\.?([A-Z]{2,})?(:\d{2,5})?(\/)?([A-Z\d\.\-_?#&%=]{1,})?$/i);
-          if (pass) return true;
+          if (pass) { return true; }
           return 'That doesn\'t look like a valid url. Don\'t forget the \'http(s)!\'';
         }
       },
@@ -57,8 +57,8 @@ export default class VulcanStart {
     inquirer.prompt(questions)
     .then(function (answers) {
       console.log('Brill!, you are creating a new Vulcan app named', chalk.cyan(answers.Name));
-      let styles_response = (answers.Styles) ? 'do' : 'don\'t';
-      console.log('You have said that you', chalk.cyan(styles_response), 'want to use the default editor theme');
+      let stylesResponse = answers.Styles ? 'do' : 'don\'t';
+      console.log('You have said that you', chalk.cyan(stylesResponse), 'want to use the default editor theme');
       console.log('Vulcan will now build your editor from', chalk.cyan(answers.API), 'using the following routes:');
       if (answers.Routes) {
         let routes = answers.Routes.split(',');
@@ -89,19 +89,17 @@ export default class VulcanStart {
           let sg = new StructuralGenerator;
           sg.init(answers);
         } else {
-          console.log(chalk.red('✘ Bummer! I guess you need to start again, I\'m afraid'));
-          exit();
+          console.log(chalk.red('✘ Aww! I guess you need to start again, I\'m afraid'));
         }
       });
     }
-
   }
 
   // Execute all methods
   init() {
     let message = this.welcomeMessage(process.env.npm_package_version);
     let intro = this.displayIntro();
-    console.log(chalk.blue(message)+"\n"+chalk.yellow(intro));
+    console.log(chalk.blue(message)+'\n'+chalk.yellow(intro));
     this.askQuestions();
   }
 }

@@ -33,7 +33,7 @@ var reporter = new JasmineConsoleReporter({
 let io;
 if(argv.core) {
   io = {
-    in: __dirname+'/'+'src',
+    in: __dirname+'/'+'src/core',
     out: __dirname+'/'+'vulcan/core',
   }
 } else {
