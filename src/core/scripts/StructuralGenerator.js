@@ -29,7 +29,8 @@ export default class StructuralGenerator {
     fs.existsSync('./vulcan/core/routes') || fs.mkdirSync('./vulcan/core/routes');
 
     if(this.answers.Styles) {
-      fs.existsSync('./vulcan/themes/default') || fs.mkdirSync('./vulcan/default/themes');
+      fs.existsSync('./vulcan/themes') || fs.mkdirSync('./vulcan/themes');
+      fs.existsSync('./vulcan/themes/default') || fs.mkdirSync('./vulcan/themes/default');
       fs.existsSync('./vulcan/themes/default/styles') || fs.mkdirSync('./vulcan/themes/default/styles');
       fs.existsSync('./vulcan/themes/default/images') || fs.mkdirSync('./vulcan/themes/default/images');
       fs.existsSync('./vulcan/themes/default/scripts') || fs.mkdirSync('./vulcan/themes/default/scripts');

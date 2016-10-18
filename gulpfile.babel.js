@@ -16,7 +16,6 @@ import rupture from 'rupture';
 import cmq from 'gulp-merge-media-queries';
 import concat from 'gulp-concat';
 import plumber from'gulp-plumber';
-import { argv } from 'yargs';
 import del from 'del';
 
 // How should the jasmine report look
@@ -29,19 +28,20 @@ var reporter = new JasmineConsoleReporter({
 });
 
 // The source and destination directories
-// Note: If you are using your own theme, simply replace the 'default' directory with your own theme dir (This will also need to be done in server.js)
-let io;
-if(argv.core) {
-  io = {
+// Note: If you are using your own theme, simply replace the 'default' theme with your own theme dir (This will also need to be done in server.js)
+
+let theme = 'default';
+
+let io = {
     in: __dirname+'/'+'src/core',
-    out: __dirname+'/'+'vulcan/core',
+    out: __dirname+'/'+'dist'
   }
-} else {
-  io = {
-    in: __dirname+'/'+'src/themes/default',
-    out: __dirname+'/'+'vulcan/themes/default'
+
+let themePaths = {
+    in: __dirname+'/'+'src/themes/'+theme,
+    out: __dirname+'/'+'vulcan/themes/'+theme
   }
-}
+
 
 // The paths
 const path = {
@@ -63,6 +63,7 @@ let onError = function (err) {
 gulp.task('watch', () => {
   gulp.watch(io.in+path.scripts+'/**/*.js', ['scripts']);
   gulp.watch(io.in+path.styles+'/**/*.styl', ['styles']);
+  gulp.watch(themePaths.in+path.styles+'/**/*.styl', ['theme']);
 })
 
 // run tests (can also use npm test)
@@ -96,8 +97,23 @@ gulp.task('scripts', ['test'], () => {
   .pipe(gulp.dest(io.out+path.scripts))
 });
 
+// Process theme
+gulp.task('theme', () => {
+  gulp.src(themePaths.in+path.styles+'/start.styl')
+  .pipe(plumber(
+    { errorHandler: onError }
+  ))
+  .pipe(stylus({
+    'include css': true,
+    use: [jeet(), rupture()]
+  }))
+  .pipe(concat('core.min.css'))
+  .pipe(cmq())
+  .pipe(gulp.dest(themePaths.out+path.styles))
+});
+
 // Update the main vulcan.js file
-gulp.task('updateApp', ['scripts'], () => {
+gulp.task('updateApp', () => {
   gulp.src(io.out+path.scripts+'/vulcan.js')
   .pipe(gulp.dest('./'))
 });

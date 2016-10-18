@@ -5,7 +5,14 @@
     "posts" : {
       "item" : [
           {
-            "id" : "",
+            "id" : {
+              "type" : "number",
+              "required" : false,
+              "editable" : true,
+              "readable" : true,
+              "default" : null,
+              "validation" : null
+            },
             "userid" : "",
             "title" : "",
             "body" : ""
