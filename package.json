@@ -41,10 +41,7 @@
     "morgan": "^1.7.0",
     "path": "^0.12.7",
     "rupture": "^0.6.1",
-    "yargs": "^6.0.0"
-  },
-  "devDependencies": {
-    "chalk": "^1.1.1",
+    "yargs": "^6.0.0",
     "del": "latest",
     "eslint": "latest",
     "gulp-babel": "^6.1.2",
