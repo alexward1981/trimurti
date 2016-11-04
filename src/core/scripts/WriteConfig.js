@@ -3,7 +3,8 @@ import fs from 'fs';
 
 export default class WriteConfig {
 // First check to see if a vulcan.json exists. If so then continue, otherwise return an error
-  generateConfigStream (stream) {
+  generateConfigStream () {
+      let stream = {}
       let extras = {
         'required' : false,
         'editable' : true,
@@ -11,7 +12,6 @@ export default class WriteConfig {
         'default' : null,
         'validation' : null
       }
-      console.log(__dirname);
       // 1. Go through each of the routes that are in the /vulcan/core/routes directory
       fs.readdir('./vulcan/core/routes', function( err, files ) {
         if( err ) {
@@ -20,14 +20,27 @@ export default class WriteConfig {
         }
 
         files.forEach( function( file, index ) {
-          console.log(file);
+          fs.readFile('./vulcan/core/routes/'+file, 'utf8' , function (err, data){
+            // 2. parse the json and store each route as an object
+            if(err) {
+              return console.log(err);
+            }
+            let obj = JSON.parse(data);
+            let routeName = file.replace('.json', '');
+            let routeData = obj.properties.data.items;
+            let newEntry = {
+              'name': routeName,
+              'data' : routeData
+            }
+            console.log(newEntry)
+            // 3. Loop through the newEntry object and append the extras to each item in the route.
+            // 4. Store each item as a child object of the routes object in the 'stream' object
+            // 5. for each object append the 'extras' object
+            // 6. Return the stream object
+          })
         })
       });
-      // 2. parse the json and store each route as an object in the 'stream' object
-      // 3. Look for the properties.data.items object and then loop through it
-      // 4. Store each item as a child object of the routes object in the 'stream' object
-      // 5. for each object append the 'extras' object
-      // 6. Return the stream object
+
   }
 
 writeFile () {

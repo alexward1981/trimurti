@@ -27,7 +27,8 @@ var WriteConfig = function () {
     key: 'generateConfigStream',
 
     // First check to see if a vulcan.json exists. If so then continue, otherwise return an error
-    value: function generateConfigStream(stream) {
+    value: function generateConfigStream() {
+      var stream = {};
       var extras = {
         'required': false,
         'editable': true,
@@ -35,7 +36,6 @@ var WriteConfig = function () {
         'default': null,
         'validation': null
       };
-      console.log(__dirname);
       // 1. Go through each of the routes that are in the /vulcan/core/routes directory
       _fs2.default.readdir('./vulcan/core/routes', function (err, files) {
         if (err) {
@@ -44,14 +44,26 @@ var WriteConfig = function () {
         }
 
         files.forEach(function (file, index) {
-          console.log(file);
+          _fs2.default.readFile('./vulcan/core/routes/' + file, 'utf8', function (err, data) {
+            if (err) {
+              return console.log(err);
+            }
+            var obj = JSON.parse(data);
+            var routeName = file.replace('.json', '');
+            var routeData = obj.properties.data.items;
+            var newEntry = {
+              'name': routeName,
+              'data': routeData
+            };
+            console.log(newEntry);
+          });
+          // 2. parse the json and store each route as an object in the 'stream' object
+          // 3. Look for the properties.data.items object and then loop through it
+          // 4. Store each item as a child object of the routes object in the 'stream' object
+          // 5. for each object append the 'extras' object
+          // 6. Return the stream object
         });
       });
-      // 2. parse the json and store each route as an object in the 'stream' object
-      // 3. Look for the properties.data.items object and then loop through it
-      // 4. Store each item as a child object of the routes object in the 'stream' object
-      // 5. for each object append the 'extras' object
-      // 6. Return the stream object
     }
   }, {
     key: 'writeFile',
