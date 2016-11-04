@@ -34,7 +34,7 @@ let theme = 'default';
 
 let io = {
     in: __dirname+'/'+'src/core',
-    out: __dirname+'/'+'dist'
+    out: __dirname+'/'+'vulcan/core'
   }
 
 let themePaths = {
@@ -119,13 +119,13 @@ gulp.task('theme', () => {
 });
 
 // Update the main vulcan.js file
-gulp.task('updateApp', () => {
+gulp.task('updateApp', ['scripts'], () => {
   gulp.src(io.out+path.scripts+'/vulcan.js')
   .pipe(gulp.dest('./'))
 });
 
 // run all the required build tasks
-gulp.task('build', ['clean'], () => {
+gulp.task('build', () => {
   gulp.start('styles', 'scripts', 'updateApp');
 });
 
