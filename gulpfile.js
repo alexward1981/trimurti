@@ -1,22 +1,15 @@
-require('babel-register')({
-  presets: [ 'es2015' ]
-});
-
-'use strict';
-
-import gulp from 'gulp';
-import chalk from 'chalk';
-import notifier from 'node-notifier';
-import babel from 'gulp-babel';
-import jasmine from 'gulp-jasmine';
-import JasmineConsoleReporter from 'jasmine-console-reporter';
-import stylus from 'gulp-stylus';
-import jeet from 'jeet';
-import rupture from 'rupture';
-import cmq from 'gulp-merge-media-queries';
-import concat from 'gulp-concat';
-import plumber from'gulp-plumber';
-import del from 'del';
+var gulp = require('gulp');
+var chalk = require('chalk');
+var notifier = require('node-notifier');
+var jasmine = require('gulp-jasmine');
+var JasmineConsoleReporter = require('jasmine-console-reporter');
+var stylus = require('gulp-stylus');
+var jeet = require('jeet');
+var rupture = require('rupture');
+var cmq = require('gulp-merge-media-queries');
+var concat = require('gulp-concat');
+var plumber = require('gulp-plumber');
+var del = require('del');
 
 // How should the jasmine report look
 var reporter = new JasmineConsoleReporter({
@@ -30,29 +23,29 @@ var reporter = new JasmineConsoleReporter({
 // The source and destination directories
 // Note: If you are using your own theme, simply replace the 'default' theme with your own theme dir (This will also need to be done in server.js)
 
-let theme = 'default';
+var theme = 'default';
 
-let io = {
+var io = {
     in: __dirname+'/'+'src/core',
     out: __dirname+'/'+'trimurti/core'
   }
 
-let themePaths = {
+var themePaths = {
     in: __dirname+'/'+'src/themes/'+theme,
     out: __dirname+'/'+'trimurti/themes/'+theme
   }
 
 
 // The paths
-const path = {
+var path = {
   views: '/views',
   scripts: '/scripts',
   styles: '/styles'
 }
 
 // Handle errors
-let errors = 0;
-let onError = function (err) {
+var errors = 0;
+var onError = function (err) {
   console.log(chalk.red('✘ Build failed!'))
   notifier.notify({ title: 'Build', message: 'Failed'});
   console.log(err);
@@ -61,14 +54,14 @@ let onError = function (err) {
 };
 
 /* Watchers */
-gulp.task('watch', () => {
+gulp.task('watch', function() {
   gulp.watch(io.in+path.scripts+'/**/*.js', ['scripts']);
   gulp.watch(io.in+path.styles+'/**/*.styl', ['styles']);
   gulp.watch(themePaths.in+path.styles+'/**/*.styl', ['theme']);
 })
 
 // run tests (can also use npm test)
-gulp.task('test', (cb) => {
+gulp.task('test', function(cb) {
   gulp.src(['tests/**/*.spec.js'])
     .pipe(jasmine({
         reporter: reporter
@@ -77,7 +70,7 @@ gulp.task('test', (cb) => {
 });
 
 // Process styles
-gulp.task('styles', () => {
+gulp.task('styles', function() {
   gulp.src(io.in+path.styles+'/start.styl')
   .pipe(plumber(
     { errorHandler: onError }
@@ -91,15 +84,8 @@ gulp.task('styles', () => {
   .pipe(gulp.dest(io.out+path.styles))
 });
 
-// Process javascript
-gulp.task('scripts', ['test'], () => {
-  gulp.src(io.in+path.scripts+'/**/*.js')
-  .pipe(babel())
-  .pipe(gulp.dest(io.out+path.scripts))
-});
-
 // Process theme
-gulp.task('theme', () => {
+gulp.task('theme', function() {
   gulp.src(themePaths.in+path.styles+'/start.styl')
   .pipe(plumber(
     { errorHandler: onError }
@@ -119,14 +105,14 @@ gulp.task('theme', () => {
 });
 
 // Update the main trimurti.js file
-gulp.task('updateApp', ['scripts'], () => {
+gulp.task('updateApp', function() {
   gulp.src(io.out+path.scripts+'/trimurti.js')
   .pipe(gulp.dest('./'))
 });
 
 // run all the required build tasks
-gulp.task('build', () => {
-  gulp.start('styles', 'scripts', 'updateApp');
+gulp.task('build', function() {
+  gulp.start('styles', 'updateApp');
 });
 
 // Delete the destination directory

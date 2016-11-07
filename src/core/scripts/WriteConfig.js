@@ -1,11 +1,12 @@
-import chalk from 'chalk';
-import fs from 'fs';
+var chalk = require('chalk');
+var fs = require('fs');
 
-export default class WriteConfig {
+var exports = module.exports = {}
+
 // First check to see if a trimurti.json exists. If so then continue, otherwise return an error
-  generateConfigStream () {
-      let stream = {}
-      let extras = {
+  exports.generateConfigStream = function () {
+      var stream = {}
+      var extras = {
         'required' : false,
         'editable' : true,
         'readable' : true,
@@ -15,20 +16,20 @@ export default class WriteConfig {
       // 1. Go through each of the routes that are in the /trimurti/core/routes directory
       fs.readdir('./trimurti/core/routes', function( err, files ) {
         if( err ) {
-            console.error( 'Could not list the directory.', err );
-            process.exit( 1 );
+          console.error( 'Could not list the directory.', err );
+          process.exit( 1 );
         }
 
-        files.forEach( function( file, index ) {
-          fs.readFile('./trimurti/core/routes/'+file, 'utf8' , function (err, data){
+        files.forEach( function( file ) {
+          fs.readFile('./trimurti/core/routes/'+file, 'utf8' , function (err2, data){
             // 2. parse the json and store each route as an object
-            if(err) {
+            if(err2) {
               return console.log(err);
             }
-            let obj = JSON.parse(data);
-            let routeName = file.replace('.json', '');
-            let routeData = obj.properties.data.items;
-            let newEntry = {
+            var obj = JSON.parse(data);
+            var routeName = file.replace('.json', '');
+            var routeData = obj.properties.data.items;
+            var newEntry = {
               'name': routeName,
               'data' : routeData
             }
@@ -43,9 +44,7 @@ export default class WriteConfig {
 
   }
 
-writeFile () {
-  // takes the values of all route configs and writes them to a 'routes' object in trimurti.json
-  return console.log(chalk.green('✔ Processing complete'));
-}
-
-}
+  exports.writeFile = function () {
+    // takes the values of all route configs and writes them to a 'routes' object in trimurti.json
+    return console.log(chalk.green('✔ Processing complete'));
+  }
