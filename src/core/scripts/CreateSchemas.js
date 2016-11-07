@@ -9,10 +9,10 @@ var exports = module.exports = {}
     // Retrieves a usable json feed from an API (specified in answers array)
     var getURL = route ? t.answers.API+'/'+route : t.answers.API;
     return axios.get(getURL)
-    .then(function(response) {
-      console.log(chalk.green('✔ Json feed found at', t.answers.API+'/'+route, 'processing...'));
-      t.processJson(response, route);
-    })
+      .then(function(response) {
+        console.log(chalk.green('✔ Json feed found at', t.answers.API+'/'+route, 'processing...'));
+        t.processJson(response, route);
+      });
   }
 
   exports.getRoutes = function() {
@@ -31,7 +31,6 @@ var exports = module.exports = {}
 
   exports.processJson = function(feed, route) {
     // Processes each route and outputs a schema file for each route
-    // FIXME: GenerateSchema is not working properly, check docs tomorrow
     var schema = GenerateSchema.json(route, feed);
     return this.createSchema(schema, route);
   }
