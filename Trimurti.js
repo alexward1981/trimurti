@@ -3,11 +3,11 @@
 
 var _yargs = require('yargs');
 
-var _WriteConfig = require('./vulcan/core/scripts/WriteConfig');
+var _WriteConfig = require('./trimurti/core/scripts/WriteConfig');
 
 var _WriteConfig2 = _interopRequireDefault(_WriteConfig);
 
-var _VulcanStart = require('./vulcan/core/scripts/VulcanStart');
+var _VulcanStart = require('./trimurti/core/scripts/VulcanStart');
 
 var _VulcanStart2 = _interopRequireDefault(_VulcanStart);
 

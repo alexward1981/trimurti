@@ -5,7 +5,7 @@ import del from 'del';
 import CreateSchemas from './CreateSchemas';
 
 /* Creates the following folder tree
-   /vulcan
+   /trimurti
     -/core
     --/scripts
     --/routes
@@ -23,18 +23,18 @@ import CreateSchemas from './CreateSchemas';
 export default class StructuralGenerator {
   // The actual folder structure generator
   genF() {
-    fs.existsSync('./vulcan') || fs.mkdirSync('./vulcan');
-    fs.existsSync('./vulcan/core') || fs.mkdirSync('./vulcan/core');
-    fs.existsSync('./vulcan/core/scripts') || fs.mkdirSync('./vulcan/core/scripts');
-    fs.existsSync('./vulcan/core/routes') || fs.mkdirSync('./vulcan/core/routes');
+    fs.existsSync('./trimurti') || fs.mkdirSync('./trimurti');
+    fs.existsSync('./trimurti/core') || fs.mkdirSync('./trimurti/core');
+    fs.existsSync('./trimurti/core/scripts') || fs.mkdirSync('./trimurti/core/scripts');
+    fs.existsSync('./trimurti/core/routes') || fs.mkdirSync('./trimurti/core/routes');
 
     if(this.answers.Styles) {
-      fs.existsSync('./vulcan/themes') || fs.mkdirSync('./vulcan/themes');
-      fs.existsSync('./vulcan/themes/default') || fs.mkdirSync('./vulcan/themes/default');
-      fs.existsSync('./vulcan/themes/default/styles') || fs.mkdirSync('./vulcan/themes/default/styles');
-      fs.existsSync('./vulcan/themes/default/images') || fs.mkdirSync('./vulcan/themes/default/images');
-      fs.existsSync('./vulcan/themes/default/scripts') || fs.mkdirSync('./vulcan/themes/default/scripts');
-      fs.existsSync('./vulcan/themes/default/views') || fs.mkdirSync('./vulcan/themes/default/views');
+      fs.existsSync('./trimurti/themes') || fs.mkdirSync('./trimurti/themes');
+      fs.existsSync('./trimurti/themes/default') || fs.mkdirSync('./trimurti/themes/default');
+      fs.existsSync('./trimurti/themes/default/styles') || fs.mkdirSync('./trimurti/themes/default/styles');
+      fs.existsSync('./trimurti/themes/default/images') || fs.mkdirSync('./trimurti/themes/default/images');
+      fs.existsSync('./trimurti/themes/default/scripts') || fs.mkdirSync('./trimurti/themes/default/scripts');
+      fs.existsSync('./trimurti/themes/default/views') || fs.mkdirSync('./trimurti/themes/default/views');
     } else {
       console.log(chalk.red('Warning:'), chalk.yellow('As you have chosen not to use the default theme, you will be presented with a style-less plain HTML product. Expect it to look awful.'));
     }
@@ -45,7 +45,7 @@ export default class StructuralGenerator {
 
   // clean existing folder
   cleantree() {
-    del('./vulcan/**').then(paths => {
+    del('./trimurti/**').then(paths => {
       // Folders found, user chose to delete everything and start again
       console.log('Deleted files and folders:\n'+paths.join('\n'));
       this.genF();
@@ -54,9 +54,9 @@ export default class StructuralGenerator {
 
   generateTree() {
     let t = this;
-    fs.access('./vulcan', fs.F_OK, function(err) {
+    fs.access('./trimurti', fs.F_OK, function(err) {
       if(!err) {
-        console.log(chalk.red('Warning:'), chalk.yellow('A Vulcan folder has been detected, if you continue, this will completely overwrite all your current Vulcan files.'));
+        console.log(chalk.red('Warning:'), chalk.yellow('A trimurti folder has been detected, if you continue, this will completely overwrite all your current trimurti files.'));
         let confirm = [
           {
             type: 'confirm',

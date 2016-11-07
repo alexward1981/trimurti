@@ -1,15 +1,15 @@
 {
-  "name": "vulcan",
+  "name": "Trimurti",
   "version": "1.0.0",
   "description": "A CMS for your API",
   "main": "server.js",
   "scripts": {
     "test": "gulp test",
-    "start": "node vulcan.js"
+    "start": "node trimurti.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alexward1981/vulcan.git"
+    "url": "git+https://github.com/alexward1981/trimurti.git"
   },
   "keywords": [
     "cms",
@@ -18,9 +18,9 @@
   "author": "Alex Ward",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/alexward1981/vulcan/issues"
+    "url": "https://github.com/alexward1981/trimurti/issues"
   },
-  "homepage": "https://github.com/alexward1981/vulcan#readme",
+  "homepage": "https://github.com/alexward1981/trimurti#readme",
   "dependencies": {
     "axios": "^0.9.1",
     "babel-core": "^6.7.4",

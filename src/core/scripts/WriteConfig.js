@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import fs from 'fs';
 
 export default class WriteConfig {
-// First check to see if a vulcan.json exists. If so then continue, otherwise return an error
+// First check to see if a trimurti.json exists. If so then continue, otherwise return an error
   generateConfigStream () {
       let stream = {}
       let extras = {
@@ -12,15 +12,15 @@ export default class WriteConfig {
         'default' : null,
         'validation' : null
       }
-      // 1. Go through each of the routes that are in the /vulcan/core/routes directory
-      fs.readdir('./vulcan/core/routes', function( err, files ) {
+      // 1. Go through each of the routes that are in the /trimurti/core/routes directory
+      fs.readdir('./trimurti/core/routes', function( err, files ) {
         if( err ) {
             console.error( 'Could not list the directory.', err );
             process.exit( 1 );
         }
 
         files.forEach( function( file, index ) {
-          fs.readFile('./vulcan/core/routes/'+file, 'utf8' , function (err, data){
+          fs.readFile('./trimurti/core/routes/'+file, 'utf8' , function (err, data){
             // 2. parse the json and store each route as an object
             if(err) {
               return console.log(err);
@@ -44,7 +44,7 @@ export default class WriteConfig {
   }
 
 writeFile () {
-  // takes the values of all route configs and writes them to a 'routes' object in vulcan.json
+  // takes the values of all route configs and writes them to a 'routes' object in trimurti.json
   return console.log(chalk.green('✔ Processing complete'));
 }
 

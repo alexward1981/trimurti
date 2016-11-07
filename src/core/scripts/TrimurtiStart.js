@@ -2,15 +2,15 @@ import chalk from 'chalk';
 import inquirer from 'inquirer';
 import StructuralGenerator from './StructuralGenerator';
 
-export default class VulcanStart {
+export default class TrimurtiStart {
   welcomeMessage(version) {
     let starString = '*************************************';
-    return '\n\n\n'+starString+'\n\n'+'  Welcome to Vulcan (Version '+version+')\n\n'+starString+'\n';
+    return '\n\n\n'+starString+'\n\n'+'  Welcome to Trimurti (Version '+version+')\n\n'+starString+'\n';
   };
 
   displayIntro() {
     return (
-      'Vulcan is a data driven CMS which will allow content editors to easily add updates to your node API.'+'\n\n'+'Note: At the moment Vulcan is limited to a single feed with simple routes and no parameters e.g. https://url.ext/api/routename \n\n'+'To get started, follow the instructions below:\n\r'
+      'Trimurti is a data driven CMS which will allow content editors to easily add updates to your node API.'+'\n\n'+'Note: At the moment Trimurti is limited to a single feed with simple routes and no parameters e.g. https://url.ext/api/routename \n\n'+'To get started, follow the instructions below:\n\r'
     )
   }
 
@@ -19,7 +19,7 @@ export default class VulcanStart {
       {
         type: 'input',
         name: 'Name',
-        message: 'What do you want to name your new Vulcan app?',
+        message: 'What do you want to name your new Trimurti app?',
         default: 'MYAPP',
         validate: function (value) {
           let pass = value.match(/^[a-zA-Z0-9_]+$/);
@@ -56,10 +56,10 @@ export default class VulcanStart {
 
     inquirer.prompt(questions)
     .then(function (answers) {
-      console.log('Brill!, you are creating a new Vulcan app named', chalk.cyan(answers.Name));
+      console.log('Brill!, you are creating a new Trimurti app named', chalk.cyan(answers.Name));
       let stylesResponse = answers.Styles ? 'do' : 'don\'t';
       console.log('You have said that you', chalk.cyan(stylesResponse), 'want to use the default editor theme');
-      console.log('Vulcan will now build your editor from', chalk.cyan(answers.API), 'using the following routes:');
+      console.log('Trimurti will now build your editor from', chalk.cyan(answers.API), 'using the following routes:');
       if (answers.Routes) {
         let routes = answers.Routes.split(',');
         for (var i = 0; i < routes.length; i++) {
@@ -85,7 +85,7 @@ export default class VulcanStart {
       inquirer.prompt(confirm)
       .then(function (confirmations) {
         if(confirmations.Happy) {
-          console.log(chalk.green('✔ Glad to hear it! Vulcan is now generating your editor'));
+          console.log(chalk.green('✔ Glad to hear it! Trimurti is now generating your editor'));
           let sg = new StructuralGenerator;
           sg.init(answers);
         } else {

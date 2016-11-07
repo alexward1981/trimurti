@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.set('view engine', 'ejs');
-app.set('views', __dirname + '/vulcan/themes/'+theme+'/views');
+app.set('views', __dirname + '/trimurti/themes/'+theme+'/views');
 
 app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -24,10 +24,10 @@ app.use(function(req, res, next) {
 app.use(morgan('dev'));
 
 // Set a static files folder (css, images etc...)
-app.use('/static', express.static('vulcan/themes/'+theme));
+app.use('/static', express.static('trimurti/themes/'+theme));
 
 app.use('/', routes);
 
 app.listen(port);
 
-console.log('Vulcan is running on localhost:'+port);
+console.log('Trimurti is running on localhost:'+port);

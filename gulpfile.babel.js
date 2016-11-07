@@ -34,12 +34,12 @@ let theme = 'default';
 
 let io = {
     in: __dirname+'/'+'src/core',
-    out: __dirname+'/'+'vulcan/core'
+    out: __dirname+'/'+'trimurti/core'
   }
 
 let themePaths = {
     in: __dirname+'/'+'src/themes/'+theme,
-    out: __dirname+'/'+'vulcan/themes/'+theme
+    out: __dirname+'/'+'trimurti/themes/'+theme
   }
 
 
@@ -118,9 +118,9 @@ gulp.task('theme', () => {
   .pipe(gulp.dest(themePaths.out+path.views))
 });
 
-// Update the main vulcan.js file
+// Update the main trimurti.js file
 gulp.task('updateApp', ['scripts'], () => {
-  gulp.src(io.out+path.scripts+'/vulcan.js')
+  gulp.src(io.out+path.scripts+'/trimurti.js')
   .pipe(gulp.dest('./'))
 });
 
