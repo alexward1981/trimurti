@@ -4,8 +4,8 @@
   "description": "A CMS for your API",
   "main": "server.js",
   "scripts": {
-    "test": "gulp test",
-    "start": "node trimurti.js"
+    "start": "node trimurti.js",
+    "test": "ava"
   },
   "repository": {
     "type": "git",
@@ -35,12 +35,10 @@
     "gulp-concat": "^2.6.0",
     "gulp-eslint": "latest",
     "gulp-express": "^0.3.5",
-    "gulp-jasmine": "^2.4.2",
     "gulp-merge-media-queries": "^0.2.1",
     "gulp-plumber": "^1.1.0",
     "gulp-stylus": "^2.5.0",
     "inquirer": "^1.2.1",
-    "jasmine-console-reporter": "^1.2.7",
     "jeet": "6.1.2",
     "jquery": "^2.2.0",
     "lodash": "^4.5.0",
@@ -49,5 +47,8 @@
     "path": "^0.12.7",
     "rupture": "^0.6.1",
     "yargs": "^6.0.0"
+  },
+  "devDependencies": {
+    "ava": "^0.16.0"
   }
 }

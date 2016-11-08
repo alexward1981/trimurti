@@ -1,8 +1,6 @@
 var gulp = require('gulp');
 var chalk = require('chalk');
 var notifier = require('node-notifier');
-var jasmine = require('gulp-jasmine');
-var JasmineConsoleReporter = require('jasmine-console-reporter');
 var stylus = require('gulp-stylus');
 var jeet = require('jeet');
 var rupture = require('rupture');
@@ -10,15 +8,6 @@ var cmq = require('gulp-merge-media-queries');
 var concat = require('gulp-concat');
 var plumber = require('gulp-plumber');
 var del = require('del');
-
-// How should the jasmine report look
-var reporter = new JasmineConsoleReporter({
-    colors: 1,           // (0|false)|(1|true)|2
-    cleanStack: 1,       // (0|false)|(1|true)|2|3
-    verbosity: 4,        // (0|false)|1|2|(3|true)|4
-    listStyle: 'indent', // "flat"|"indent"
-    activity: false
-});
 
 // The source and destination directories
 // Note: If you are using your own theme, simply replace the 'default' theme with your own theme dir (This will also need to be done in server.js)
@@ -59,15 +48,6 @@ gulp.task('watch', function() {
   gulp.watch(io.in+path.styles+'/**/*.styl', ['styles']);
   gulp.watch(themePaths.in+path.styles+'/**/*.styl', ['theme']);
 })
-
-// run tests (can also use npm test)
-gulp.task('test', function(cb) {
-  gulp.src(['tests/**/*.spec.js'])
-    .pipe(jasmine({
-        reporter: reporter
-    }))
-    cb();
-});
 
 // Process styles
 gulp.task('styles', function() {
