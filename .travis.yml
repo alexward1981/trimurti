@@ -2,7 +2,7 @@ language: node_js
 node_js: stable
 before_script:
 - npm install -g gulp ava
-script: gulp build --prod
+script: node install.js
 after_script:
 - npm test
 # deploy:
