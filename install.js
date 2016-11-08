@@ -17,6 +17,8 @@ var del = require('del');
     ----/views
 */
 
+//TODO: Create default theme files and copy those over too
+
 (function() {
   // The actual folder structure generator
   var genF = function() {
