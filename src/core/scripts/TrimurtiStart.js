@@ -1,6 +1,7 @@
 var chalk = require('chalk');
 var inquirer = require('inquirer');
 var CreateSchemas = require('./CreateSchemas');
+var WriteConfig = require('./WriteConfig');
 
 var exports = module.exports = {}
 
@@ -79,6 +80,7 @@ var exports = module.exports = {}
       .then(function (confirmations) {
         if(confirmations.Happy) {
           console.log(chalk.green('✔ Glad to hear it! Trimurti is now generating your editor'));
+          WriteConfig.makeFile(answers);
           CreateSchemas.init(answers);
         } else {
           console.log(chalk.red('✘ Aww! I guess you need to start again, I\'m afraid'));

@@ -34,6 +34,7 @@ var exports = module.exports = {}
               'name': routeName,
               'data' : streamProps
             }
+            //4. Write the output to the stream and pass it to writeFile()
             exports.writeFile(stream);
           })
         })
@@ -41,8 +42,25 @@ var exports = module.exports = {}
 
   }
 
+  exports.makeFile = function (answers) {
+    var appName = answers.Name;
+    var apiRoot = answers.API;
+    var jsonData = {
+      appName: appName,
+      apiRoot: apiRoot
+    }
+    fs.writeFile('trimurti.json', jsonData, 'utf-u', function (err) {
+      if (err) { return console.log(err); }
+      console.log(chalk.green('trimurti.json file written to project root'))
+    });
+  }
+
   exports.writeFile = function (stream) {
     // takes the values of all route configs and writes them to a 'routes' object in trimurti.json
+    // 1. Open the trimurti.json file created in makeFile()
+    // 2. Loop through the file and store the current entries in an object
+    // 3. Take the stream object, place it in a property called 'routes' and combine it with the object from step 3 to create a 'newStream' object
+    // 4. Write the newStream object to trimurti.json, overwriting the exisitng file's contents
     console.log(stream.data);
     return console.log(chalk.green('✔ Processing of '+stream.name+' complete'));
   }
