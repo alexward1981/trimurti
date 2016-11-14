@@ -5,23 +5,24 @@ var exports = module.exports = {}
 
 // First check to see if a trimurti.json exists. If so then continue, otherwise return an error
   exports.generateConfigStream = function () {
+      var stream = {}
       // 1. Go through each of the routes that are in the /trimurti/core/routes directory
       fs.readdir('./trimurti/core/routes', function( err, files ) {
         if( err ) {
           console.error( 'Could not list the directory.', err );
           process.exit( 1 );
         }
-
-        files.forEach( function( file ) {
+        files.forEach( function(file) {
           fs.readFile('./trimurti/core/routes/'+file, 'utf8' , function (err2, data){
             // 2. parse the json and store each route as an object
             if(err2) {
-              return console.log(err);
+              return console.log(err2);
             }
             var obj = JSON.parse(data);
             var routeName = file.replace('.json', '');
             var routeData = obj.properties.data.items;
             var streamProps = routeData.properties;
+            console.log(chalk.yellow('Processing', routeName, 'route'));
             // 3. Loop through the newEntry object and append some extra properties to each item in the route.
             for (var i in streamProps) {
               streamProps[i].required = true;
@@ -30,14 +31,17 @@ var exports = module.exports = {}
               streamProps[i].default = null;
               streamProps[i].validation = null;
             }
-            var stream = {
+            stream = {
               'name': routeName,
               'data' : streamProps
             }
-            //4. Write the output to the stream and pass it to writeFile()
-            exports.writeFile(stream);
           })
-        })
+        });
+        //TODO: Even though the above should be syncronous, for some reason it's not behaving that way
+        // I might have to add a timeout or something to fix the issue.
+        //console.log(stream);
+        //4. Write the output to the stream and pass it to writeFile()
+        //exports.writeFile(stream);
       });
 
   }
@@ -58,9 +62,16 @@ var exports = module.exports = {}
   exports.writeFile = function (stream) {
     // takes the values of all route configs and writes them to a 'routes' object in trimurti.json
     // 1. Open the trimurti.json file created in makeFile()
-    // 2. Loop through the file and store the current entries in an object
-    // 3. Take the stream object, place it in a property called 'routes' and combine it with the object from step 3 to create a 'newStream' object
-    // 4. Write the newStream object to trimurti.json, overwriting the exisitng file's contents
-    console.log(stream.data);
+    fs.readFile('./trimurti.json', 'utf8' , function (err, data){
+      // 2. parse the json and store each route as an object
+      if(err) {
+        return console.log(err);
+      }
+      var obj = JSON.parse(data);
+      console.log(data);
+      // 2. Loop through the file and store the current entries in an object
+      // 3. Take the stream object, place it in a property called 'routes' and combine it with the object from step 3 to create a 'newStream' object
+      // 4. Write the newStream object to trimurti.json, overwriting the exisitng file's contents
+    });
     return console.log(chalk.green('✔ Processing of '+stream.name+' complete'));
   }
