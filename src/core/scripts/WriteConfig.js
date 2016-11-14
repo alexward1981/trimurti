@@ -5,14 +5,6 @@ var exports = module.exports = {}
 
 // First check to see if a trimurti.json exists. If so then continue, otherwise return an error
   exports.generateConfigStream = function () {
-      var stream = {}
-      var extras = {
-        'required' : false,
-        'editable' : true,
-        'readable' : true,
-        'default' : null,
-        'validation' : null
-      }
       // 1. Go through each of the routes that are in the /trimurti/core/routes directory
       fs.readdir('./trimurti/core/routes', function( err, files ) {
         if( err ) {
@@ -29,22 +21,28 @@ var exports = module.exports = {}
             var obj = JSON.parse(data);
             var routeName = file.replace('.json', '');
             var routeData = obj.properties.data.items;
-            var newEntry = {
-              'name': routeName,
-              'data' : routeData
+            var streamProps = routeData.properties;
+            // 3. Loop through the newEntry object and append some extra properties to each item in the route.
+            for (var i in streamProps) {
+              streamProps[i].required = true;
+              streamProps[i].editable = false;
+              streamProps[i].readable = true;
+              streamProps[i].default = null;
+              streamProps[i].validation = null;
             }
-            console.log(newEntry)
-            // 3. Loop through the newEntry object and append the extras to each item in the route.
-            // 4. Store each item as a child object of the routes object in the 'stream' object
-            // 5. for each object append the 'extras' object
-            // 6. Return the stream object
+            var stream = {
+              'name': routeName,
+              'data' : streamProps
+            }
+            exports.writeFile(stream);
           })
         })
       });
 
   }
 
-  exports.writeFile = function () {
+  exports.writeFile = function (stream) {
     // takes the values of all route configs and writes them to a 'routes' object in trimurti.json
-    return console.log(chalk.green('✔ Processing complete'));
+    console.log(stream.data);
+    return console.log(chalk.green('✔ Processing of '+stream.name+' complete'));
   }

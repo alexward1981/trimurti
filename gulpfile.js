@@ -84,15 +84,21 @@ gulp.task('theme', function() {
   .pipe(gulp.dest(themePaths.out+path.views))
 });
 
+// Copy the scripts files to the trimurti scripts dir
+gulp.task('scripts', function() {
+  gulp.src(io.in+path.scripts+'/**/*.js')
+  .pipe(gulp.dest(io.out+path.scripts))
+});
+
 // Update the main trimurti.js file
 gulp.task('updateApp', function() {
-  gulp.src(io.out+path.scripts+'/trimurti.js')
+  gulp.src(io.in+'/start/trimurti.js')
   .pipe(gulp.dest('./'))
 });
 
 // run all the required build tasks
 gulp.task('build', function() {
-  gulp.start('styles', 'updateApp');
+  gulp.start('styles', 'scripts', 'updateApp');
 });
 
 // Delete the destination directory

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var argv = require('yargs');
+var argv = require('yargs').argv;
 var WriteConfig = require('./trimurti/core/scripts/WriteConfig');
 var TrimurtiStart = require('./trimurti/core/scripts/TrimurtiStart');
 

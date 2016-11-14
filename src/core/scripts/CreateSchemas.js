@@ -26,7 +26,7 @@ var exports = module.exports = {}
       this.getJson();
     }
     // TODO: This should not happen until after the loop has finished it's run
-    // Send the results to WriteConfig.js
+    // Send the results to WriteConfig.js, maybe convert this to a promise?
   }
 
   exports.processJson = function(feed, route) {
