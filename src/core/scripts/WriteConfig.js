@@ -49,7 +49,7 @@ var exports = module.exports = {}
       appName: appName,
       apiRoot: apiRoot
     }
-    fs.writeFile('trimurti.json', jsonData, 'utf-u', function (err) {
+    fs.writeFile('./trimurti.json', JSON.stringify(jsonData, null, 4), 'utf-8', function (err) {
       if (err) { return console.log(err); }
       console.log(chalk.green('trimurti.json file written to project root'))
     });
