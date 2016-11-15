@@ -37,11 +37,17 @@ var exports = module.exports = {}
             }
           })
         });
-        //TODO: Even though the above should be syncronous, for some reason it's not behaving that way
-        // I might have to add a timeout or something to fix the issue.
-        //console.log(stream);
+        console.log(chalk.blue('Compiling json from routes, this will take a few moments...'));
+        // TODO: Refactor! The 5 second timeout isn't ideal but it fixes the issue for now.
+        setTimeout(
+          function() {
+            console.log(chalk.green('✔ Processing complete.'));
+            exports.writeFile(stream);
+          }, 5000
+        );
+
         //4. Write the output to the stream and pass it to writeFile()
-        //exports.writeFile(stream);
+
       });
 
   }
@@ -55,7 +61,7 @@ var exports = module.exports = {}
     }
     fs.writeFile('./trimurti.json', JSON.stringify(jsonData, null, 4), 'utf-8', function (err) {
       if (err) { return console.log(err); }
-      console.log(chalk.green('trimurti.json file written to project root'))
+      console.log(chalk.green('✔ trimurti.json file written to project root'))
     });
   }
 
@@ -68,10 +74,15 @@ var exports = module.exports = {}
         return console.log(err);
       }
       var obj = JSON.parse(data);
-      console.log(data);
-      // 2. Loop through the file and store the current entries in an object
+      console.log(chalk.blue('writing results to trimurti.json'));
       // 3. Take the stream object, place it in a property called 'routes' and combine it with the object from step 3 to create a 'newStream' object
+      var newStream = obj;
+      newStream.routes = stream;
+
       // 4. Write the newStream object to trimurti.json, overwriting the exisitng file's contents
+      fs.writeFile('./trimurti.json', JSON.stringify(newStream, null, 4), 'utf-8', function (err2) {
+        if (err2) { return console.log(err2); }
+        return console.log(chalk.green('✔ Operation complete. Trimurti is now ready to use.'));
+      });
     });
-    return console.log(chalk.green('✔ Processing of '+stream.name+' complete'));
   }
