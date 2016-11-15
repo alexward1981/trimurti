@@ -9,26 +9,11 @@
   <div class="wrapper">
     <div class="tree_menu">
       <ul>
-        <li>
-          Route 1
-          <ul>
-            <li>
-              Item 1
-            </li>
-            <li>
-              Item 2
-            </li>
-            <li>
-              Item 3
-            </li>
-          </ul>
-        </li>
-        <li>
-          Route 2
-        </li>
-        <li>
-          Route 3
-        </li>
+        <% config.routes.forEach(function(route) { %>
+          <li>
+            <%= route.name %>
+          </li>
+        <% }) %>
         <li class="settings">
           Settings
         </li>

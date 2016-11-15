@@ -4,7 +4,7 @@
   "description": "A CMS for your API",
   "main": "server.js",
   "scripts": {
-    "start": "node trimurti.js",
+    "start": "node server.js",
     "test": "ava"
   },
   "repository": {

@@ -59,6 +59,7 @@ var exports = module.exports = {}
       appName: appName,
       apiRoot: apiRoot
     }
+    // FIX: This isn't writing all the routes out, it seems only one is making it to the config file
     fs.writeFile('./trimurti.json', JSON.stringify(jsonData, null, 4), 'utf-8', function (err) {
       if (err) { return console.log(err); }
       console.log(chalk.green('✔ trimurti.json file written to project root'))
@@ -80,7 +81,7 @@ var exports = module.exports = {}
       newStream.routes = stream;
 
       // 4. Write the newStream object to trimurti.json, overwriting the exisitng file's contents
-      fs.writeFile('./trimurti.json', JSON.stringify(newStream, null, 4), 'utf-8', function (err2) {
+      fs.writeFile('./trimurti.json', newStream, 'utf-8', function (err2) {
         if (err2) { return console.log(err2); }
         return console.log(chalk.green('✔ Operation complete. Trimurti is now ready to use.'));
       });
