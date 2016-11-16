@@ -1,8 +1,90 @@
-[
-    {
-        "appName": "TestApp",
-        "apiRoot": "https://jsonplaceholder.typicode.com",
-        "routes": {
+{
+    "appName": "TestApp2",
+    "apiRoot": "https://jsonplaceholder.typicode.com",
+    "routes": [
+        {
+            "name": "comments",
+            "data": {
+                "postId": {
+                    "type": "number",
+                    "required": true,
+                    "editable": false,
+                    "readable": true,
+                    "default": null,
+                    "validation": null
+                },
+                "id": {
+                    "type": "number",
+                    "required": true,
+                    "editable": false,
+                    "readable": true,
+                    "default": null,
+                    "validation": null
+                },
+                "name": {
+                    "type": "string",
+                    "required": true,
+                    "editable": false,
+                    "readable": true,
+                    "default": null,
+                    "validation": null
+                },
+                "email": {
+                    "type": "string",
+                    "required": true,
+                    "editable": false,
+                    "readable": true,
+                    "default": null,
+                    "validation": null
+                },
+                "body": {
+                    "type": "string",
+                    "required": true,
+                    "editable": false,
+                    "readable": true,
+                    "default": null,
+                    "validation": null
+                }
+            }
+        },
+        {
+            "name": "posts",
+            "data": {
+                "userId": {
+                    "type": "number",
+                    "required": true,
+                    "editable": false,
+                    "readable": true,
+                    "default": null,
+                    "validation": null
+                },
+                "id": {
+                    "type": "number",
+                    "required": true,
+                    "editable": false,
+                    "readable": true,
+                    "default": null,
+                    "validation": null
+                },
+                "title": {
+                    "type": "string",
+                    "required": true,
+                    "editable": false,
+                    "readable": true,
+                    "default": null,
+                    "validation": null
+                },
+                "body": {
+                    "type": "string",
+                    "required": true,
+                    "editable": false,
+                    "readable": true,
+                    "default": null,
+                    "validation": null
+                }
+            }
+        },
+        {
             "name": "users",
             "data": {
                 "id": {
@@ -107,5 +189,5 @@
                 }
             }
         }
-    }
-]
+    ]
+}

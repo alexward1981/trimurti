@@ -9,7 +9,7 @@
   <div class="wrapper">
     <div class="tree_menu">
       <ul>
-        <% config.routes.forEach(function(route) { %>
+        <% editor.routes.forEach(function(route) { %>
           <li>
             <%= route.name %>
           </li>
@@ -21,7 +21,6 @@
     </div>
     <div class="editor">
       <h1>Currently editing:</h1>
-      <h2><%= RouteName %></h2>
     </div>
   </div>
 </body>

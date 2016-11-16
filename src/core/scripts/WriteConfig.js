@@ -5,14 +5,14 @@ var exports = module.exports = {}
 
 // First check to see if a trimurti.json exists. If so then continue, otherwise return an error
   exports.generateConfigStream = function () {
-      var stream = {}
+      var stream = []
       // 1. Go through each of the routes that are in the /trimurti/core/routes directory
       fs.readdir('./trimurti/core/routes', function( err, files ) {
         if( err ) {
           console.error( 'Could not list the directory.', err );
           process.exit( 1 );
         }
-        files.forEach( function(file) {
+        files.forEach( function(file, index) {
           fs.readFile('./trimurti/core/routes/'+file, 'utf8' , function (err2, data){
             // 2. parse the json and store each route as an object
             if(err2) {
@@ -31,10 +31,14 @@ var exports = module.exports = {}
               streamProps[i].default = null;
               streamProps[i].validation = null;
             }
-            stream = {
-              'name': routeName,
-              'data' : streamProps
-            }
+            //4. Write the output to the stream and pass it to writeFile()
+
+            stream.push(
+              {
+                'name': routeName,
+                'data' : streamProps
+              }
+            )
           })
         });
         console.log(chalk.blue('Compiling json from routes, this will take a few moments...'));
@@ -45,9 +49,6 @@ var exports = module.exports = {}
             exports.writeFile(stream);
           }, 5000
         );
-
-        //4. Write the output to the stream and pass it to writeFile()
-
       });
 
   }
@@ -59,7 +60,6 @@ var exports = module.exports = {}
       appName: appName,
       apiRoot: apiRoot
     }
-    // FIX: This isn't writing all the routes out, it seems only one is making it to the config file
     fs.writeFile('./trimurti.json', JSON.stringify(jsonData, null, 4), 'utf-8', function (err) {
       if (err) { return console.log(err); }
       console.log(chalk.green('✔ trimurti.json file written to project root'))
@@ -80,8 +80,9 @@ var exports = module.exports = {}
       var newStream = obj;
       newStream.routes = stream;
 
+
       // 4. Write the newStream object to trimurti.json, overwriting the exisitng file's contents
-      fs.writeFile('./trimurti.json', newStream, 'utf-8', function (err2) {
+      fs.writeFile('./trimurti.json', JSON.stringify(newStream, null, 4), 'utf-8', function (err2) {
         if (err2) { return console.log(err2); }
         return console.log(chalk.green('✔ Operation complete. Trimurti is now ready to use.'));
       });

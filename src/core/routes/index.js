@@ -1,13 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var config = require(path.resolve('./trimurti.json'));
+var jsonData = require(path.resolve('./trimurti.json'));
 
 router.get('/', (req, res) => {
     res.render(
-      'index',
-      {
-        config: config
+      'index', {
+        editor: jsonData
       }
     )
 })
