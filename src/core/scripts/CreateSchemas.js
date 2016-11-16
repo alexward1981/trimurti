@@ -25,8 +25,6 @@ var exports = module.exports = {}
     } else {
       this.getJson();
     }
-    // TODO: This should not happen until after the loop has finished it's run
-    // Send the results to WriteConfig.js, maybe convert this to a promise?
   }
 
   exports.processJson = function(feed, route) {
@@ -40,7 +38,7 @@ var exports = module.exports = {}
     fs.writeFile('./trimurti/core/routes/'+route+'.json', JSON.stringify(schema, null, 4), 'utf8', function (err) {
       if (err) { return console.log(err); }
     });
-    return console.log(chalk.green('✔ Processing of' ,route, 'complete'));
+    return console.log(chalk.green('✔ Processing of' ,route, ' schema complete'));
   }
 
   exports.init = function(answers) {

@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Trimurti editor</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="screen" title="no title">
   <link rel="stylesheet" href="/static/styles/core.min.css">
 </head>
 <body>
@@ -11,17 +13,27 @@
       <ul>
         <% editor.routes.forEach(function(route) { %>
           <li>
-            <%= route.name %>
+            <a href="/edit/<%= route.name %>"><%= route.name %></a>
+            <ul>
+              <% route.data.forEach(function(item, key, index) { %>
+                <li><%= key %></li>
+              <% }) %>
+            </ul>
           </li>
         <% }) %>
         <li class="settings">
-          Settings
+          <a href="/settings">Settings</a>
         </li>
       </ul>
     </div>
     <div class="editor">
-      <h1>Currently editing:</h1>
+      <h1>Welcome to Trimurti:</h1>
+      <p>
+        Use the tree on the left to edit your site. Each top level item represents an api route.
+      </p>
+      <p>Each level below that represents an item within that api route</p>
     </div>
   </div>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>

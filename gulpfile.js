@@ -47,6 +47,7 @@ gulp.task('watch', function() {
   gulp.watch(io.in+path.scripts+'/**/*.js', ['scripts']);
   gulp.watch(io.in+path.styles+'/**/*.styl', ['styles']);
   gulp.watch(themePaths.in+path.styles+'/**/*.styl', ['theme']);
+  gulp.watch(themePaths.in+path.views+'/**/*.ejs', ['theme']);
 })
 
 // Process styles

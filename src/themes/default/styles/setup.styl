@@ -57,10 +57,13 @@ body {
     > li {
       background-color: #555;
       padding: $spacing;
-      color: $light;
       border-bottom: 1px dotted $light;
       &:hover {
         background-color: darken(#555, 10%);
+      }
+      a {
+        color: $light;
+        text-transform: capitalize; 
       }
       ul {
         padding: $spacing;
